@@ -2,16 +2,6 @@ var express = require('express');
 var router = express.Router();
 const connection = require('../config/sql');
 
-const users = [{
-  id: 1,
-  name: 'fofo', 
-  age: 18  
-},{
-  id: 2,
-  name: 'lofayo',
-  age: 26
-}]
-
 /* GET users listing. */
 // router.param('id', (req, res, next, id) => {
 //   const target = users[id];
@@ -25,7 +15,13 @@ const querySql = 'select * from person';
 router.get('/getUsers', function(req, res, next) {
   connection.query(querySql, (error, result) => {
     if (error) throw error;
-    res.send(result);
+    res.set({'Access-Control-Allow-Origin': '*'});
+    const resData  = {
+      success: true,
+      data: result,
+      message: '成功'
+    };
+    res.send(resData);
   })
 });
 
