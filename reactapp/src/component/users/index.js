@@ -1,12 +1,14 @@
 
-import React, {Component} from 'react';
-import './app.css';
+import React, {Component, Fragment} from 'react';
+import {Button} from 'antd';
+import AddUserModal from './addUserModal';
 
-class App extends Component {
+class User extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      persons: []
+      persons: [],
+      visible: false
     };
   }
   componentDidMount() {
@@ -26,13 +28,34 @@ class App extends Component {
       return <p><em>姓名：{name}</em>, 年龄：{age}, 性别：{sex}</p>
     })
   }
+  addUser = () => {
+      this.setState({visible: true});
+  }
+  handleOk = (userValues) => {
+      let url = 'http://localhost:3000/users/addUsers';
+      fetch(url, {
+          body: JSON.stringify(userValues),
+          method: 'post'
+      })
+      .then(res => res.json())
+      .then((result) => {
+        debugger;
+      })
+
+  }
+  handleCancel = () => {
+      this.setState({visible: false})
+  }
   render() {
-    const {persons} = this.state;
-    return <div>{
-        this.getUsers(persons)
-      }
+    const {persons, visible} = this.state;
+    return <div>
+        <div><Button onClick={this.addUser} type='primary'>添加用户</Button></div>  
+        <AddUserModal visible={visible} handleOk={this.handleOk} handleCancel={this.handleCancel} />
+        {
+            this.getUsers(persons)
+        }
     </div>
   }
 }
 
-export default App;
+export default User;

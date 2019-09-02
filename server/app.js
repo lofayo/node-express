@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var bodyParser = require('body-parser')
 var app = express();
 
 const routes = require('./routes/index')
@@ -16,7 +16,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/static', express.static(path.join(__dirname, 'public')));
-
+// parse application/json
+app.use(bodyParser.json())
 // 遍历路由
 Object.keys(routes).forEach((key) => {
     app.use(`/${key}`, routes[key]);

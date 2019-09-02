@@ -11,7 +11,7 @@ const connection = require('../config/sql');
 // })
 
 // 获取用户列表
-const querySql = 'select * from person';
+const querySql = 'select * from user';
 router.get('/getUsers', function(req, res, next) {
   connection.query(querySql, (error, result) => {
     if (error) throw error;
@@ -23,6 +23,13 @@ router.get('/getUsers', function(req, res, next) {
     };
     res.send(resData);
   })
+});
+
+// 获取用户列表
+// const querySql = 'select * from user';
+router.post('/addUsers', function(req, res, next) {
+    res.set({'Access-Control-Allow-Origin': '*'});
+    res.send({name:'fofo'});
 });
 
 module.exports = router;
