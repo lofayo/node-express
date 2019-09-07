@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const connection = require('../config/sql');
+const response = require('../utils/response')
 
 /* GET users listing. */
 // router.param('id', (req, res, next, id) => {
@@ -9,27 +10,36 @@ const connection = require('../config/sql');
 //   res.send('data no exist');
 //   next();
 // })
-
+router.all('*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+  res.header("Content-Type", "application/json;charset=utf-8");
+  next();
+});
 // 获取用户列表
-const querySql = 'select * from user';
+const getUsersSql = 'select * from user';
 router.get('/getUsers', function(req, res, next) {
-  connection.query(querySql, (error, result) => {
-    if (error) throw error;
-    res.set({'Access-Control-Allow-Origin': '*'});
-    const resData  = {
-      success: true,
-      data: result,
-      message: '成功'
-    };
-    res.send(resData);
+  connection.query(getUsersSql, (error, result) => {
+    if (error) {
+      res.send(response.fail(error));
+    }
+    res.send(response.succeed(result));
   })
 });
 
 // 获取用户列表
-// const querySql = 'select * from user';
 router.post('/addUsers', function(req, res, next) {
-    res.set({'Access-Control-Allow-Origin': '*'});
-    res.send({name:'fofo'});
+    const {name, age, sex} = req.body || {};
+    const addUsersSql =`insert into user(name, age, sex) values(?,?, ?)`;
+    const sqlParams = [name, age, sex];
+    connection.query(addUsersSql, sqlParams, (error, result) => {
+      if (error) {
+        res.send(response.fail(error));
+      }
+      res.send(response.succeed(req.body));
+    })
+
 });
 
 module.exports = router;

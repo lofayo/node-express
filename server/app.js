@@ -22,6 +22,15 @@ app.use(bodyParser.json())
 Object.keys(routes).forEach((key) => {
     app.use(`/${key}`, routes[key]);
 })
+// 跨域中间件
+var allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Access-Control-Allow-Credentials','true');
+  next();
+};
+app.use(allowCrossDomain);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

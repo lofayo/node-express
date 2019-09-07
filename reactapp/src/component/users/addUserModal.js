@@ -16,7 +16,7 @@ class AddUserModal extends Component {
         });
       };
     handleCancel = () => {
-        this.props.from.resetFields();
+        this.props.form.resetFields();
         this.props.handleCancel();
     }  
     render() {
