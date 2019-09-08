@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from "react";
-import { Button } from "antd";
-import AddUserModal from "./addUserModal";
-import request from "../../utils/request";
+import React, { Component, Fragment } from 'react';
+import { Button } from 'antd';
+import AddUserModal from './addUserModal';
+import request from '../../utils/request';
 
 class User extends Component {
     constructor(props) {
@@ -15,7 +15,7 @@ class User extends Component {
         this.getUsers();
     }
     getUsers = () => {
-        let url = "/users/getUsers";
+        let url = '/users/getUsers';
         request.get(url, (result) => {
             const { data, success } = result || {};
             if (success) {
@@ -23,10 +23,10 @@ class User extends Component {
             }
         });
     };
-    renderUser = (person) => {
+    renderUser = (person, index) => {
         const { name, age, sex } = person || {};
         return (
-            <p>
+            <p key={index}>
                 <em>姓名：{name}</em>, 年龄：{age}, 性别：{sex}
             </p>
         );
@@ -35,7 +35,7 @@ class User extends Component {
         this.setState({ visible: true });
     };
     saveUser = (userValues) => {
-        let url = "/users/addUsers";
+        let url = '/users/addUsers';
         request.post(url, userValues, (result) => {
             const { success, data } = result || {};
             if (success) {
@@ -52,7 +52,7 @@ class User extends Component {
         return (
             <div>
                 <div>
-                    <Button onClick={this.addUser} type="primary">
+                    <Button onClick={this.addUser} type='primary'>
                         添加用户
                     </Button>
                 </div>
