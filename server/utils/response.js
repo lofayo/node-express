@@ -4,14 +4,14 @@ const response = {
             success: true,
             data,
             message: '成功'
-        }
+        };
     },
     fail(data) {
         return {
             success: false,
-            data,
-            message: '失败'
-        }
+            data: null,
+            message: data
+        };
     }
-}
+};
 module.exports = response;
