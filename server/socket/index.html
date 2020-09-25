@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id='root'></div>
+    <div id='container'></div>
+    <script type="module">
+        import WebSocketClass from './webSocket.js';
+        const rootNode = document.getElementById('root');
+        const port1 = '9999';
+        const params1 = 'hello, i am from web message';
+        const socket1 = new WebSocketClass(port1, params1);
+        const setRootContent = (data) => {
+            rootNode.innerHTML = data;
+        };
+        socket1.push(setRootContent);
+
+        const containerNode = document.getElementById('container');
+        const port2 = '8888';
+        const params2 = 'date';
+        const socket2 = new WebSocketClass(port2, params2);
+        const setContainerContent = (data) => {
+            containerNode.innerHTML = data;
+        };
+        socket2.push(setContainerContent);
+    </script>
+</body>
+</html>
