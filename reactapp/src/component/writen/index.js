@@ -33,7 +33,7 @@ class Writen extends Component {
     saveContent = () => {
         const content = this.editor.txt.html();
         if(!content || !this.curTopic) return message.warn('文章和类型必填');
-        const params = {articleType: this.curTopic, content}
+        const params = {type: this.curTopic, content}
         request.post('/article/addArticle', params, (res) => {
 
         })

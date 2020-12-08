@@ -6,9 +6,9 @@ router.get('/getTopics', (req, res) => {
     const getTopicsSql = `select * from topic`;
     connection.query(getTopicsSql, (error, result) => {
         if (error) {
-            res.send(response.fail(error));
+            return res.send(response.fail(error));
         }
-        res.send(response.succeed(result));
+        return res.send(response.succeed(result));
     });
 });
 
@@ -26,9 +26,9 @@ router.post('/addTopic', (req, res, next) => {
             const sqlParams = [topicName, new Date(), new Date()];
             connection.query(addUsersSql, sqlParams, (error, result) => {
                 if (error) {
-                    res.send(response.fail(error));
+                    return res.send(response.fail(error));
                 }
-                res.send(response.succeed(req.body));
+                return res.send(response.succeed(req.body));
             });
         }
     });
