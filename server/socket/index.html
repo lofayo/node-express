@@ -7,26 +7,23 @@
 </head>
 <body>
     <div id='root'></div>
+    <hr />
     <div id='container'></div>
     <script type="module">
-        import WebSocketClass from './webSocket.js';
+        import WebSocketClass from './webSocketClass.js';
         const rootNode = document.getElementById('root');
-        const port1 = '9999';
-        const params1 = 'hello, i am from web message';
-        const socket1 = new WebSocketClass(port1, params1);
+        const socket1 = new WebSocketClass(9999, 'request random');
         const setRootContent = (data) => {
             rootNode.innerHTML = data;
         };
-        socket1.push(setRootContent);
+        socket1.subscribe(setRootContent);
 
         const containerNode = document.getElementById('container');
-        const port2 = '8888';
-        const params2 = 'date';
-        const socket2 = new WebSocketClass(port2, params2);
+        const socket2 = new WebSocketClass(8888, 'request date');
         const setContainerContent = (data) => {
             containerNode.innerHTML = data;
         };
-        socket2.push(setContainerContent);
+        socket2.subscribe(setContainerContent);
     </script>
 </body>
 </html>

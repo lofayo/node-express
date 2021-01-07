@@ -2,7 +2,7 @@ const ws = require('ws');
 const fs = require('fs');
 const socketObj = require('./socketObj.js');
 let SocketServer = ws.Server
-class WebSocketServer {
+class WebSocketServerClass {
     constructor(name, port) {
         this.socket = null;
         this.wsServer = null;
@@ -17,7 +17,7 @@ class WebSocketServer {
             //监听对方发过来的消息数据
             socket.on('message', (data) => {
                 // data是客户端发送过来的参数
-
+                this.socket.send('the data is from web request: ' + data);
             });
         })
     }
@@ -62,4 +62,4 @@ module.exports = socketObj;
     }
 }
 
-module.exports = WebSocketServer;
+module.exports = WebSocketServerClass;

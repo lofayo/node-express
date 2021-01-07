@@ -2,10 +2,10 @@
  * @Author: 罗方勇
  * @Description: 生成websocket的类
  * @Date: 2020-09-24 15:57:33
- * @LastEditTime: 2020-09-24 17:13:57
+ * @LastEditTime: 2021-01-07 14:54:19
  */
 /**
- * @param {url, params} 
+ * @param {port, params} 
  * @description: 
  */
 class WebSocketClass {
@@ -19,18 +19,22 @@ class WebSocketClass {
         this.socket.onopen = () => {
             this.socket.send(params);
         };
-        // 当接收到服务端消息
+        // 当接收到服务端消息，触发订阅函数
         this.socket.onmessage = (event) => {
-            this.callbackList.forEach(fn => {
-                if(fn instanceof Function) {
-                    fn(event.data);
-                }
-            })
+            this.publish(event.data);
         }
     }
-    // websocket收到消息后需要执行的操作
-    push = (callback) => {
+    // 订阅websocket收到消息后需要执行的操作
+    subscribe = (callback) => {
         this.callbackList.push(callback);
+    }
+    // 给订阅函数发布数据
+    publish = (data) => {
+        this.callbackList.forEach(fn => {
+            if(fn instanceof Function) {
+                fn(data);
+            }
+        })
     }
 }
 

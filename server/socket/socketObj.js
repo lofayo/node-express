@@ -19,8 +19,7 @@ const socketObj = {
 					"_eventsCount": 5,
 					"_connections": 0,
 					"_handle": {
-						"reading": false,
-						"onread": null
+						"reading": false
 					},
 					"_usingWorkers": false,
 					"_workers": [],
@@ -28,10 +27,11 @@ const socketObj = {
 					"allowHalfOpen": true,
 					"pauseOnConnect": false,
 					"httpAllowHalfOpen": false,
-					"timeout": 120000,
+					"timeout": 0,
 					"keepAliveTimeout": 5000,
 					"maxHeadersCount": null,
-					"headersTimeout": 40000,
+					"headersTimeout": 60000,
+					"requestTimeout": 0,
 					"_connectionKey": "6::::9999"
 				},
 				"clients": {},
